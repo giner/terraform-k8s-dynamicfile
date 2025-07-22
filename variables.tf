@@ -15,7 +15,7 @@ variable "nginx_image" {
 
   default = "nginx:latest"
 
-  description = "Make sure to specify a docker image digest for production use"
+  description = "Nginx Docker image. Make sure to specify a docker image digest for production use"
 }
 
 variable "updater_image" {
@@ -28,6 +28,8 @@ variable "updater_image" {
 
 variable "command" {
   type = string
+
+  description = "Command to be run periodically. Output of the command will be served by Nginx"
 }
 
 variable "period" {
