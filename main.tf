@@ -122,7 +122,7 @@ resource "kubernetes_deployment_v1" "this" {
 
         container {
           name  = "updater"
-          image = var.nginx_image
+          image = coalesce(var.updater_image, var.nginx_image)
 
           command = ["/bin/sh", "-c"]
 

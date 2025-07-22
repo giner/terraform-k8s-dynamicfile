@@ -18,6 +18,14 @@ variable "nginx_image" {
   description = "Make sure to specify a docker image digest for production use"
 }
 
+variable "updater_image" {
+  type = string
+
+  default = null
+
+  description = "Docker image to use for the updater. If not specified, the value of `nginx_image` will be used"
+}
+
 variable "command" {
   type = string
 }
