@@ -1,6 +1,11 @@
 locals {
   content_type_quoted = jsonencode(var.content_type)
 
+  additional_headers = join("\n", [
+    for name, value in var.additional_headers :
+    "add_header ${jsonencode(name)} ${jsonencode(value)};"
+  ])
+
   updater_script = <<-EOT
     set -eu
 
@@ -42,6 +47,7 @@ resource "kubernetes_config_map_v1" "config" {
       server_tokens off;
 
       add_header Cache-Control no-cache;
+      ${local.additional_headers}
 
       gzip on;
       gzip_types ${local.content_type_quoted};
