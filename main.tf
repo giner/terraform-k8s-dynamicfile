@@ -3,7 +3,7 @@ locals {
 
   additional_headers = join("\n", [
     for name, value in var.additional_headers :
-    "add_header ${jsonencode(name)} ${jsonencode(value)};"
+    "add_header ${jsonencode(name)} ${jsonencode(value)} always;"
   ])
 
   updater_script = <<-EOT
@@ -46,7 +46,7 @@ resource "kubernetes_config_map_v1" "config" {
     "staticfile.conf" = <<-EOF
       server_tokens off;
 
-      add_header Cache-Control no-cache;
+      add_header Cache-Control no-cache always;
       ${local.additional_headers}
 
       gzip on;
